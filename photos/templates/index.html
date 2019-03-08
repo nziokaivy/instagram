@@ -2,9 +2,11 @@
 {% block content %}
 <h1>Hello World</h1>
 {%for image in images %}
-<img src="{{ user.profile.profile_photo.url }}" alt="ppic">
+
 <p>{{ image.poster }}</p>
 <img src="{{ image.image.url }}">
-
+<p>{{ image.pub_date }} </p>
+<p>Likes</p>
+<p>Comments</p>
 {%endfor%}
 {% endblock %}

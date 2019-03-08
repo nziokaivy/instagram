@@ -12,10 +12,12 @@ class Profile(models.Model):
         return f'{self.user.username} Profile'
 
     def save_profile(self):
-        self.save()    
+        self.save() 
+
+      
 
 class Image(models.Model):
-    image = models.ImageField(upload_to = 'images/', blank = True)
+    image = models.ImageField(default='deafault.jpg', upload_to = 'images/', blank = True)
     caption = models.CharField(max_length = 50, blank = True)
     likes = models.ManyToManyField(User, related_name = 'likes', blank = True)
     poster = models.ForeignKey(User, related_name = "posts", blank = True)
