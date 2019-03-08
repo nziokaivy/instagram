@@ -9,10 +9,15 @@
           <div class="media-body">
             <h2 class="account-heading">{{ user.username }}</h2>
             <p class="text-secondary">{{ user.email }}</p>
-            <p class="text-secondary">{{ user.user_bio }}</p>
+            <p class="text-secondary">{{ user.profile.user_bio }}</p>
           </div>
         </div>
-        <!-- FORM HERE -->
+        {%for image in images %}
+
+    <p>{{ image.poster }}</p>
+   <img src="{{ image.image.url }}">
+
+{%endfor%}
       </div>
 
       {% endblock %}

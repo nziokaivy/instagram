@@ -8,12 +8,13 @@ from django.contrib.auth.decorators import login_required
 
 def home(request):
     current_user = request.user
-    images = Image.objects.order_by('-pub_date')   
+    images = Image.objects.order_by('-pub_date') 
+    profile = Profile.objects.order_by('_last_update')  
     return render(request,'index.html', {'images':images})
 
 @login_required(login_url='/accounts/login/')
 def profile(request):
-    current_user = request.user    
-    images = Image.objects.all().filter(profile_id = current_user.id)
-    return render(request, 'profile.html', {'images':images, 'profile':profile})    
+    user = request.user 
+    images = Image.objects.order_by('-pub_date')      
+    return render(request, 'profile.html', {"user":user, "current_user":request.user, "images":images})    
 
