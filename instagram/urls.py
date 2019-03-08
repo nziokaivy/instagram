@@ -20,5 +20,8 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-   url(r'^photos/', include('photos.urls')),
+    url(r'^photos/', include('photos.urls')),
+    url(r'^accounts/', include('registration.backends.simple.urls')),
+    url(r'^accounts/', include('registration.backends.simple.urls')),
+
 ]
