@@ -1,0 +1,43 @@
+{% load bootstrap3 %}
+{% load static%}
+
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="utf-8">
+
+ {% block styles %}
+ {% bootstrap_css %}
+ 
+ <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
+{% endblock %}
+
+
+</head>
+<body>
+        <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                  <div class="navbar-header">
+                    <a class="navbar-brand" href="{% url 'home' %}">Instagram</a>
+                  </div>
+                </div>
+              </nav>
+ 
+ {% block content %}
+ 
+ {% include "index.html" %}
+
+ 
+
+  <h1 class='text-center'></h1> 
+  {%endblock%}
+
+ {% block scripts %}
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+     
+  {% bootstrap_javascript %}
+ {% endblock %}
+
+ 
+</body>
+</html>
