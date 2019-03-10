@@ -5,10 +5,11 @@ from . import views
 
 
 urlpatterns = [
-    url(r'^$',views.home,name='home'),
-    
-    url(r'^accounts/profile/', views.profile, name = 'profile'), 
-]    
+    url(r'^$',views.home,name='home'),    
+    url(r'^accounts/profile/', views.profile, name = 'profile'),
+    url(r'^likes/$', views.like_image, name='like_image'),
+    url(r'^image/(?P<image_id>\d+)', views.image, name='image'),  
+]   
 
 if settings.DEBUG:
     urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

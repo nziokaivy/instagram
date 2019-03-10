@@ -2,7 +2,7 @@
 {% block content %}
 <h1>Hello World</h1>
 
-{%for image in images %}
+{% for image in images %}
 <div class="panel panel-default">
         
 
@@ -19,13 +19,28 @@
         
         <img src="{{ image.image.url }}">
         <p>{{ image.pub_date }} </p>
-        <i class="fa fa-heart" style="font-size:36px;"></i>
-        <p>Likes:</p>
-        <i class="fa fa-comment-o" style="font-size:36px"></i>
+    <form action="{% url 'like_image' %}" method="POST">
+            {% csrf_token %}
+            
+            {%if is_liked%}
+            <button type="submit" name="image_id" value="{{ post.id }}" class="button"><i onclick="myFunction(this)" class="fa fa-heart-o fa-2x" style="font-size:24px;"></i>Dislike</button>
+            {%else%}
+            <button type="submit" name="image_id" value="{{image.id}}" class="button"> <i onclick="myFunction(this)" class="fa fa-heart-o "></i>Like </button> <h3></h3>
+            {%endif%}
+            <p>Likes:</p>
+    </form>
+        <i class="fa fa-comment-o" style="font-size:24px"></i>
         <p>Comments:</p>
         
     </div>
 
   </div>
+
   {%endfor%}
+  <script>
+        function myFunction(x) {
+          x.classList.toggle("fa-thumbs-down");
+        }
+        </script>
+        </body>
 {% endblock %}

@@ -14,20 +14,41 @@ class Profile(models.Model):
     def save_profile(self):
         self.save() 
 
+    def get_absolute_url(self): 
+        return reverse('user_profile')    
+
       
 
 class Image(models.Model):
     image = models.ImageField(default='deafault.jpg', upload_to = 'images/', blank = True)
     caption = models.CharField(max_length = 50, blank = True)
     likes = models.ManyToManyField(User, related_name = 'likes', blank = True)
-    poster = models.ForeignKey(User, related_name = "posts", blank = True)
-    pub_date = models.DateTimeField(auto_now_add = True, blank = True)
+    poster = models.ForeignKey(User, related_name = "images", blank = True)
+    pub_date = models.DateTimeField(auto_now = True, blank = True)
   
 
     @classmethod
     def get_image(cls):
 
        return cls.objects.all()
+
+    def total_likes(self):
+       return self.likes.count
+
+    def search_by_user(cls, search_term):
+        images = cls.objects.filter(image_caption__icontains=search_term)
+        return images  
+
+    @classmethod
+    def get_by_id(cls, id):
+        profile = Profile.objects.get(user = id)
+        return profile    
+
+    @classmethod
+    def get_profile_images(cls, poster):
+        images = Image.objects.filter(poster__pk = poster)
+        return images
+
 
     @classmethod
     def get_image_id(cls, id):
@@ -43,6 +64,22 @@ class Image(models.Model):
     def update_caption(self):
         self.caption = new_caption
         self.save()
+
+    def update_image(self,val):
+       
+       Image.objects.filter(id = self.id).update(name = val)
+
+    @classmethod
+    def get_absolute_url(self): 
+        return render('index')   
+
+    @classmethod
+    def get_photos(cls):
+       return cls.objects.all()
+    
+    
+     
+    
 
 class Comments(models.Model):
     comment = models.CharField(max_length = 100, blank = True)
