@@ -15,15 +15,18 @@ def home(request):
     return render(request,'index.html', {'images':images, 'profile':profile})
 
 
-@login_required(login_url='/accounts/login/')
-def profile(request):
-    
-    user = request.user 
-    
-    images = Image.objects.all().filter(id=user.id)
-     
-    return render(request, 'profile.html', {'images':images})    
 
+def profile(request, username):
+    profile = User.objects.get(username=username)
+    # print(profile.id)
+    try:
+        profile_details = Profile.get_by_id(profile.id)
+    except:
+        profile_details = Profile.filter_by_id(profile.id)
+    images = Image.get_profile_images(profile.id)
+    title = f'@{profile.username} Instagram photos and videos'
+
+    return render(request, 'profile/profile.html', {'title':title, 'profile':profile, 'profile_details':profile_details, 'images':images})
 def image(request,image_id):
 
     images = Image.get_image_id(image_id)
@@ -56,4 +59,16 @@ def like_image(request):
         is_liked = True
 
     return HttpResponseRedirect(images.get_absolute_url())
+
+def search(request):
+    if 'search' in request.GET and request.GET['search']:
+        search_term = request.GET.get('search')
+        profiles = Profile.search_profile(search_term)
+        message = f'{search_term}'
+
+        return render(request, 'search.html',{'message':message, 'profiles':profiles})
+    else:
+        message = 'Enter term to search'
+
+        return render(request, 'search.html', {'message':message})
 
