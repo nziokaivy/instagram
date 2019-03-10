@@ -29,6 +29,11 @@ class Image(models.Model):
 
        return cls.objects.all()
 
+    @classmethod
+    def get_image_id(cls, id):
+        image = Image.objects.get(pk=id)
+        return image   
+
     def save_image(self):
         self.save()
 
@@ -43,3 +48,11 @@ class Comments(models.Model):
     comment = models.CharField(max_length = 100, blank = True)
     image = models.ForeignKey(Image, related_name = "comments")
     user = models.ForeignKey(User, related_name = "comments")
+
+    def save_comment(self):
+        self.save()
+    
+    @classmethod
+    def get_comments_by_images(cls, id):
+        comments = Comments.objects.filter(image__pk = id)
+        return comments

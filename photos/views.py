@@ -24,3 +24,22 @@ def profile(request):
      
     return render(request, 'profile.html', {'images':images})    
 
+def image(request,image_id):
+
+    images = Image.objects.get(id = image_id)
+    comments = Comments.get_comments_by_images(image_id)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.image = image
+            comment.author = request.user
+            comment.save()
+        return redirect('home')
+    else:
+        form = CommentForm()
+        is_liked = False
+        if image.likes.filter(id = request.user.id).exists():
+            is_liked = True
+
+    return render(request,"image.html", {"image":image,"is_liked":is_liked,"total_likes":image.total_likes(),'comments':comments,'form':form})
