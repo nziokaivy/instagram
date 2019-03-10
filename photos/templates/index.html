@@ -1,12 +1,30 @@
 {% extends 'base.html' %}
 {% block content %}
 <h1>Hello World</h1>
-{%for image in images %}
 
-<p>{{ image.poster }}</p>
-<img src="{{ image.image.url }}">
-<p>{{ image.pub_date }} </p>
-<p>Likes</p>
-<p>Comments</p>
-{%endfor%}
+{%for image in images %}
+<div class="panel panel-default">
+        
+
+    <div class="panel-heading">
+            
+            {%if image.poster.profile.profile_photo %}
+            <h3 class=""> <img src="{{ image.poster.profile.profile_photo.url }}" style="width:70px;height:70px; border-radius: 50%;" alt="image"></h3>
+            {%else %}
+            <h3 class=""> <img src="/static/images/default.jpeg" style="width:70px;height:70px; border-radius: 50%;" alt="image"></h3>
+            {%endif%}
+        <p>{{ image.poster }}</p>
+    </div>
+    <div class="panel-body">
+        
+        <img src="{{ image.image.url }}">
+        <p>{{ image.pub_date }} </p>
+        <i class="fa fa-heart" style="font-size:36px;"></i>
+        <p>Likes:</p>
+        <p>Comments</p>
+        
+    </div>
+
+  </div>
+  {%endfor%}
 {% endblock %}
