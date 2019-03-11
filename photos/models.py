@@ -9,7 +9,7 @@ from django.urls import reverse
 
 class Profile(models.Model):
     profile_photo = models.ImageField( upload_to = 'profiles/', null=True)
-    user_bio = HTMLField()
+    user_bio = models.CharField(max_length = 100, blank = True)
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
      
     def __str__(self):
@@ -42,17 +42,13 @@ class Profile(models.Model):
         return profile  
 
 class Image(models.Model):
-    image = models.ImageField(default='default.jpg', upload_to = 'images/', blank = True)
-    caption = HTMLField()
+    image = models.ImageField( upload_to = 'images/', blank = True)
+    caption = models.CharField(max_length = 100, blank = True)
     likes = models.ManyToManyField(User, related_name = 'likes', blank = True)
     poster = models.ForeignKey(User, related_name = "images", blank = True)
     pub_date = models.DateTimeField(auto_now = True, blank = True)
     
 
-    @classmethod
-    def get_image(cls):
-
-       return cls.objects.all()
 
     def total_likes(self):
        return self.likes.count
@@ -61,21 +57,13 @@ class Image(models.Model):
         images = cls.objects.filter(image_caption__icontains=users)
         return cls.objects.filter(user_id = user.id) 
 
-    @classmethod
-    def get_by_id(cls, id):
-        profile = Profile.objects.get(user = id)
-        return profile    
+      
 
     @classmethod
     def get_profile_images(cls, poster):
         images = Image.objects.filter(poster__pk = poster)
         return images
 
-
-    @classmethod
-    def get_image_id(cls, id):
-        image = Image.objects.get(pk=id)
-        return image   
 
     def save_image(self):
         self.save()
@@ -87,9 +75,6 @@ class Image(models.Model):
         self.caption = new_caption
         self.save()
 
-    def update_image(self,val):
-       
-       Image.objects.filter(id = self.id).update(name = val)
 
     @classmethod
     def get_absolute_url(self): 

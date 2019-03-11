@@ -17,7 +17,7 @@
     <div class="panel-body">
         <a href="{% url 'image' image.id%}"> <img src="{{image.image.url}}" class="img-responsive"   alt="Image" style="width:350px; height:350px;margin:auto; margin-left: auto;margin-right:auto;"></a> <br>
         <ul class="list-inline home-text">
-                <h5 style="font-family: 'Gentium Basic', serif;"><b><a href="{%url 'profile'  %}" >{{image.poster}} :</a></b> {{image.caption}} </h5>
+                <h5 style="font-family: 'Playfair Display', serif; font-family: 'Sniglet', cursive;"><b><a href="{%url 'profile'  %}" >{{image.poster}} :</a></b> {{image.caption}} </h5>
             
                 <li class="list-inline-item">
                    
@@ -39,8 +39,7 @@
                     <a  href="" data-toggle="modal" data-target="#myModal"><i class="fa fa-comment-o fa-2x" aria-hidden="true"></i></a> {{ image.comments.count }}
                 </li>
             </ul>
-            <h5 style="font-family: 'Gentium Basic', serif;"><b><a href="{%url 'profile'  %}" >{{image.poster|upper}} :</a></b> {{image.caption}} </h5>
-       
+            
            
         
 
