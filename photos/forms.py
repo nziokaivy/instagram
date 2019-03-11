@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Profile, Comments
+from .models import Profile, Comments, Image
 
 class UserCreateForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -10,15 +10,17 @@ class UserCreateForm(UserCreationForm):
         model = User
         fields = ("username", "email", "password1", "password2")
 
-    def save(self, commit=True):
-        user = super(UserCreateForm, self).save(commit=False)
-        user.email = self.cleaned_data["email"]
-        if commit:
-            user.save()
-        return user
+    
 
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comments
         exclude = ['image', 'user']
 
+from django import forms
+
+class ImageForm(forms.ModelForm):
+
+    class Meta:
+        model = Image
+        exclude=['likes','poster']

@@ -3,7 +3,11 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from .models import Image, Profile, Comments,User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from .forms import  CommentForm
+from .forms import  CommentForm, ImageForm
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
+
+
 # Create your views here.
 
 
@@ -14,19 +18,25 @@ def home(request):
     profile = Profile.objects.order_by('_last_update')  
     return render(request,'index.html', {'images':images, 'profile':profile})
 
+def upload_image(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = ImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            image = form.save(commit=False)
+            image.poster = current_user
+            image.save()
+            return redirect('home')
+    else:
+        form = UploadForm()
+    
+    return render(request, 'upload_image.html', {'form':form})
 
+def profile(request):
+    
+   
+    return render(request, 'profile.html')
 
-def profile(request, username):
-    profile = User.objects.get(username=username)
-    # print(profile.id)
-    try:
-        profile_details = Profile.get_by_id(profile.id)
-    except:
-        profile_details = Profile.filter_by_id(profile.id)
-    images = Image.get_profile_images(profile.id)
-    title = f'@{profile.username} Instagram photos and videos'
-
-    return render(request, 'profile/profile.html', {'title':title, 'profile':profile, 'profile_details':profile_details, 'images':images})
 def image(request,image_id):
 
     images = Image.get_image_id(image_id)
@@ -71,4 +81,5 @@ def search(request):
         message = 'Enter term to search'
 
         return render(request, 'search.html', {'message':message})
+
 

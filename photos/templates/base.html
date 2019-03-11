@@ -24,7 +24,8 @@
                     <a class="navbar-brand" href="/accounts/register">Register</a>
                     <a class="navbar-brand" href="/accounts/login">Login</a>
                     <a class="navbar-brand" href="/logout">Logout</a>
-                    <a class="navbar-brand" href="{%url 'profile'%}">Profile</a>
+                    <a class="navbar-brand" href="{% url 'profile' %}">Profile</a>
+                    <a class="navbar-brand" href="{% url 'upload_image' %}">Upload Image</a>
                     
                   
                     <form  class= "w3 center"style="margin-top:10px; margin-left:auto;margin-right:auto; width: 50%;" class="navbar-form" role="search" action="{% url 'search' %}">

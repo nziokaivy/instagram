@@ -1,11 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User
+from tinymce.models import HTMLField
 
 # Create your models here.
 
 class Profile(models.Model):
     profile_photo = models.ImageField( upload_to = 'profiles/', null=True)
-    user_bio = models.TextField()
+    user_bio = HTMLField()
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
      
     def __str__(self):
@@ -15,13 +16,18 @@ class Profile(models.Model):
         self.save() 
 
     def get_absolute_url(self): 
-        return reverse('user_profile')    
+        return reverse('user_profile')  
+
+    @classmethod
+    def search_profile(cls, name):
+        profile = Profile.objects.filter(user__username__icontains = name)
+        return profile  
 
       
 
 class Image(models.Model):
-    image = models.ImageField(default='deafault.jpg', upload_to = 'images/', blank = True)
-    caption = models.CharField(max_length = 50, blank = True)
+    image = models.ImageField(default='default.jpg', upload_to = 'images/', blank = True)
+    caption = HTMLField()
     likes = models.ManyToManyField(User, related_name = 'likes', blank = True)
     poster = models.ForeignKey(User, related_name = "images", blank = True)
     pub_date = models.DateTimeField(auto_now = True, blank = True)
@@ -71,7 +77,7 @@ class Image(models.Model):
 
     @classmethod
     def get_absolute_url(self): 
-        return render('index')   
+        return reverse('index')   
 
     @classmethod
     def get_photos(cls):

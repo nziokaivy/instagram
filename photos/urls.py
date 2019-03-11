@@ -5,7 +5,8 @@ from . import views
 
 
 urlpatterns = [
-    url(r'^$',views.home,name='home'),    
+    url(r'^$',views.home,name='home'),  
+    url(r'^upload/$', views.upload_image, name='upload_image'),  
     url(r'^accounts/profile/', views.profile, name = 'profile'),
     url(r'^likes/$', views.like_image, name='like_image'),
     url(r'^image/(?P<image_id>\d+)', views.image, name='image'),
