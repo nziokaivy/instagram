@@ -24,6 +24,13 @@
           </div>
           <ul class="nav navbar-nav">
 
+              <form class="navbar-form navbar-left" action="{% url 'search_results' %}" style="margin-top:30px; padding-left:400px; padding-right:400px;">
+                  <div class="form-group">
+                    <input type="text" class="form-control" style="font-family: 'Playfair Display', serif; font-family: 'Sniglet', cursive;" placeholder="Search">
+                  </div>
+                  <button type="submit" class="btn btn-default" style="font-family: 'Playfair Display', serif; font-family: 'Sniglet', cursive;"><i class="fa fa-search"></i></button>
+                </form>
+
               <li class="active">
                   <a  href="/admin" style="font-family: 'Playfair Display', serif; font-family: 'Sniglet', cursive;" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
                   <i class="fa fa-user-plus" style="font-size:36px"></i>
@@ -46,7 +53,7 @@
                 </li>
 
                 <li>
-                    <a  href="/accounts/logout"  style="font-family: 'Playfair Display', serif; font-family: 'Sniglet', cursive;" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+                    <a  href="/logout"  style="font-family: 'Playfair Display', serif; font-family: 'Sniglet', cursive;" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
                         <i class="fa fa-sign-out" style="font-size:36px"></i>
                         <p>LOGOUT</p>
                       </a>
@@ -69,12 +76,8 @@
             
           
           </ul>
-          <form class="navbar-form navbar-left" action="/action_page.php">
-            <div class="form-group">
-              <input type="text" class="form-control" style="font-family: 'Playfair Display', serif; font-family: 'Sniglet', cursive;" placeholder="Search">
-            </div>
-            <button type="submit" class="btn btn-default" style="font-family: 'Playfair Display', serif; font-family: 'Sniglet', cursive;"><i class="fa fa-search"></i></button>
-          </form>
+        
+          
         </div>
       </nav>
         

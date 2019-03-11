@@ -3,27 +3,37 @@
 
 
 {% for image in images %}
-<div class="panel panel-default">
+<div class="panel panel" style="width: 58rem; margin-left:35rem;">
+    <hr>
         
 
     <div class="panel-heading">
-            
-            {%if image.poster.profile.profile_photo %}
+            <ul class="list-inline home-text">
+                <li class="list-inline-item">
+            {% if image.poster.profile.profile_photo %}
             <h3 class=""> <img src="{{ image.poster.profile.profile_photo.url }}" style="width:70px;height:70px; border-radius: 50%;" alt="image"></h3>
-            {%else %}
+            {% else %}
             <h3 class=""> <img src="/static/images/default.jpeg" style="width:70px;height:70px; border-radius: 50%;" alt="image"></h3>
-            {%endif%}
+            {% endif %}
+                </li>
+
+                <li class="list-inline-item">
+                    {{ image.poster }}
+                    </li>
+            <hr>
+        </ul>
     </div>
     <div class="panel-body">
-        <a href="{% url 'image' image.id%}"> <img src="{{image.image.url}}" class="img-responsive"   alt="Image" style="width:350px; height:350px;margin:auto; margin-left: auto;margin-right:auto;"></a> <br>
+        <a href="{% url 'image' image.id%}"> <img src="{{image.image.url}}" class="img-responsive" class="col-xs-12 col-sm-6 col-md-4 col-lg-4"    alt="Image" style="width:550px; height:550px;margin:auto; margin-left: auto;margin-right:auto;"></a> <br>
+        <hr>
         <ul class="list-inline home-text">
                 <h5 style="font-family: 'Playfair Display', serif; font-family: 'Sniglet', cursive;"><b><a href="{%url 'profile'  %}" >{{image.poster}} :</a></b> {{image.caption}} </h5>
             
                 <li class="list-inline-item">
                    
                     <form action="{%url 'like_image'%}" method="POST">
-                        {% csrf_token%}
-                        {%if is_liked%}
+                        {% csrf_token %}
+                        {% if is_liked %}
                         <button type="submit" name="image_id" value="{{image.id}}" class="btn btn-danger"> <i onclick="myFunction(this)" class="fa fa-heart-o fa-2x" style="font-size:24px;"></i>disLike </button> <h3</h3> 
                         
                         {%else%}
@@ -33,19 +43,13 @@
                       </form>
                 </li>
                 <li class="list-inline-item">
-                    {{image.likes.count}}
+                    {{ image.likes.count }}
                  </li>
                 <li class="list-inline-item">
                     <a  href="" data-toggle="modal" data-target="#myModal"><i class="fa fa-comment-o fa-2x" aria-hidden="true"></i></a> {{ image.comments.count }}
                 </li>
             </ul>
             
-           
-        
-
-
-            <!-- <old stuff> -->
-        
                     
         
     </div>
