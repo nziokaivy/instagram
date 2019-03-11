@@ -20,22 +20,60 @@
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
           <div class="navbar-header">
-            <a class="navbar-brand" href="{% url 'home' %}">Ingramgram</a>
+            <a class="navbar-brand" style="font-family: 'Playfair Display', serif; font-family: 'Sniglet', cursive;" href="{% url 'home' %}">Ingramgram</a>
           </div>
           <ul class="nav navbar-nav">
-            <li class="active"><a href="/admin">Admin</a></li>
-            <li><a href="/accounts/register">Register</a></li>
-            <li><a href="/accounts/login">Login</a></li>
-            <li><a href="/logout">Logout</a></li>
-            <li><a href="/accounts/login">Login</a></li>
-            <li><a href="{% url 'profile' %}">Profile</a></li>
-            <li><a  href="{% url 'upload_image' %}"><i class="material-icons" style="font-size:36px"></i></a></li>
+
+              <li class="active">
+                  <a  href="/admin" style="font-family: 'Playfair Display', serif; font-family: 'Sniglet', cursive;" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+                  <i class="fa fa-user-plus" style="font-size:36px"></i>
+                  <p>ADMIN</p>
+                </a>
+              </li>
+
+            <li>
+            <a  href="/accounts/register"  style="font-family: 'Playfair Display', serif; font-family: 'Sniglet', cursive;" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+                <i class="fa fa-pencil-square-o" style="font-size:36px"></i>
+                <p>REGISTER</p>
+              </a>
+            </li>
+
+            <li>
+                <a  href="/accounts/login"  style="font-family: 'Playfair Display', serif; font-family: 'Sniglet', cursive;" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+                    <i class="fa fa-sign-in" style="font-size:36px"></i>
+                    <p>LOGIN</p>
+                  </a>
+                </li>
+
+                <li>
+                    <a  href="/accounts/logout"  style="font-family: 'Playfair Display', serif; font-family: 'Sniglet', cursive;" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+                        <i class="fa fa-sign-out" style="font-size:36px"></i>
+                        <p>LOGOUT</p>
+                      </a>
+                    </li>    
+
+                    <li>
+                        <a  href="{% url 'profile' %}" style="font-family: 'Playfair Display', serif; font-family: 'Sniglet', cursive;" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+                            <i class="fa fa-user" style="font-size:36px"></i>
+                            <p>PROFILE</p>
+                          </a>
+                        </li>         
+
+            <li>
+              <a  href="{% url 'upload_image' %}" style="font-family: 'Playfair Display', serif; font-family: 'Sniglet', cursive;" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+              <i class="fa fa-camera-retro" style="font-size:36px"></i>
+              <p>ADD PHOTO</p>
+            </a>
+          </li>
+           
+            
+          
           </ul>
           <form class="navbar-form navbar-left" action="/action_page.php">
             <div class="form-group">
-              <input type="text" class="form-control" placeholder="Search">
+              <input type="text" class="form-control" style="font-family: 'Playfair Display', serif; font-family: 'Sniglet', cursive;" placeholder="Search">
             </div>
-            <button type="submit" class="btn btn-default">Submit</button>
+            <button type="submit" class="btn btn-default" style="font-family: 'Playfair Display', serif; font-family: 'Sniglet', cursive;"><i class="fa fa-search"></i></button>
           </form>
         </div>
       </nav>
