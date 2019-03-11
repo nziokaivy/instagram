@@ -18,13 +18,13 @@
                 </li>
 
                 <li class="list-inline-item">
-                    {{ image.poster }}
+                        <b>{{image.poster}}</b>
                     </li>
             <hr>
         </ul>
     </div>
     <div class="panel-body">
-        <a href="{% url 'image' image.id%}"> <img src="{{image.image.url}}" class="img-responsive" class="col-xs-12 col-sm-6 col-md-4 col-lg-4"    alt="Image" style="width:550px; height:550px;margin:auto; margin-left: auto;margin-right:auto;"></a> <br>
+        <a href="{% url 'image' image.id%}"> <img src="{{image.image.url}}" class="img-responsive" class="col-xs-12 col-sm-6 col-md-4 col-lg-4"    alt="Image" style="width:100%; height:550px;margin:auto; margin-left: auto;margin-right:auto;"></a> <br>
         <hr>
         <ul class="list-inline home-text">
                 <h5 style="font-family: 'Playfair Display', serif; font-family: 'Sniglet', cursive;"><b><a href="{%url 'profile'  %}" >{{image.poster}} :</a></b> {{image.caption}} </h5>
