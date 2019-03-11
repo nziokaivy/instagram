@@ -28,18 +28,19 @@ def upload_image(request):
             image.save()
             return redirect('home')
     else:
-        form = UploadForm()
+        form = ImageForm()
     
     return render(request, 'upload_image.html', {'form':form})
 
 def profile(request):
+    user = request.user    
+    images = Image.objects.all().filter(poster_id = user.id)
+    return render(request, 'profile.html', {'images':images, "user":user, "current_user":request.user })
     
-   
-    return render(request, 'profile.html')
 
 def image(request,image_id):
 
-    images = Image.get_image_id(image_id)
+    image = Image.get_image_id(id = image_id)
     comments = Comments.get_comments_by_images(image_id)
 
     if request.method == 'POST':
@@ -47,15 +48,19 @@ def image(request,image_id):
         if form.is_valid():
             comment = form.save(commit=False)
             comment.image = image
-            comment.user = request.user
+            comment.author = request.user
             comment.save()
-        return redirect('image', image_id = image_id)
+        return redirect('home')
 
     else:
         form = CommentForm()
 
+    is_liked = False
+    if image.likes.filter(id = request.user.id).exists():
+        is_liked = True    
 
-    return render(request,"image.html", {"image":image,'comments':comments,'form':form})
+
+    return render(request,"image.html", {"image":image,"is_liked":is_liked,"total_likes":image.total_likes(),'comments':comments,'form':form})
 
 
 def like_image(request):

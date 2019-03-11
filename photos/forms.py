@@ -11,11 +11,11 @@ class UserCreateForm(UserCreationForm):
         fields = ("username", "email", "password1", "password2")
 
     
-
 class CommentForm(forms.ModelForm):
+
     class Meta:
         model = Comments
-        exclude = ['image', 'user']
+        fields = ('comment',)
 
 from django import forms
 

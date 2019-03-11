@@ -16,21 +16,38 @@
         <p>{{ image.poster }}</p>
     </div>
     <div class="panel-body">
-        
-        <img src="{{ image.image.url }}">
-        <p>{{ image.pub_date }} </p>
-    <form action="{% url 'like_image' %}" method="POST">
-            {% csrf_token %}
+        <a href="{% url 'image' image.id%}"> <img src="{{image.image.url}}" class="img-responsive"   alt="Image" style="width:350px; height:350px;margin:auto; margin-left: auto;margin-right:auto;"></a> <br>
+        <ul class="list-inline home-text">
             
-            {%if is_liked%}
-            <button type="submit" name="image_id" value="{{ post.id }}" class="button"><i onclick="myFunction(this)" class="fa fa-heart-o fa-2x" style="font-size:24px;"></i>Dislike</button>
-            {%else%}
-            <button type="submit" name="image_id" value="{{image.id}}" class="button"> <i onclick="myFunction(this)" class="fa fa-heart-o "></i>Like </button> <h3></h3>
-            {%endif%}
-            <p>Likes:</p>
-    </form>
-        <i class="fa fa-comment-o" style="font-size:24px"></i>
-        <p>Comments:</p>
+                <li class="list-inline-item">
+                   
+                    <form action="{%url 'like_image'%}" method="POST">
+                        {% csrf_token%}
+                        {%if is_liked%}
+                        <button type="submit" name="image_id" value="{{image.id}}" class="btn btn-danger"> <i onclick="myFunction(this)" class="fa fa-heart-o fa-2x"></i>disLike </button> <h3</h3> 
+                        
+                        {%else%}
+                        <button type="submit" name="image_id" value="{{image.id}}" class="button"> <i onclick="myFunction(this)" class="fa fa-heart-o fa-2x"></i>Like </button> <h3></h3>
+                        {%endif%}
+                       
+                      </form>
+                </li>
+                <li class="list-inline-item">
+                    {{image.likes.count}}
+                 </li>
+                <li class="list-inline-item">
+                    <a  href="" data-toggle="modal" data-target="#myModal"><i class="fa fa-comment-o fa-2x" aria-hidden="true"></i></a> {{ image.comments.count }}
+                </li>
+            </ul>
+            <h5 style="font-family: 'Gentium Basic', serif;"><b><a href="{%url 'profile'  %}" >{{image.poster|upper}} :</a></b> {{image.caption}} </h5>
+       
+           
+        
+
+
+            <!-- <old stuff> -->
+        
+        
         
     </div>
 

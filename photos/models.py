@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from tinymce.models import HTMLField
+from django.urls import reverse
 
 # Create your models here.
 
@@ -22,6 +23,16 @@ class Profile(models.Model):
     def search_profile(cls, name):
         profile = Profile.objects.filter(user__username__icontains = name)
         return profile  
+
+    @classmethod
+    def get_by_id(cls, id):
+        profile = Profile.objects.get(user = id)
+        return profile
+
+    @classmethod
+    def filter_by_id(cls, id):
+        profile = Profile.objects.filter(user = id).first()
+        return profile    
 
       
 
@@ -77,20 +88,17 @@ class Image(models.Model):
 
     @classmethod
     def get_absolute_url(self): 
-        return reverse('index')   
+        return reverse('home')   
 
     @classmethod
     def get_photos(cls):
        return cls.objects.all()
     
-    
-     
-    
-
 class Comments(models.Model):
     comment = models.CharField(max_length = 100, blank = True)
     image = models.ForeignKey(Image, related_name = "comments")
-    user = models.ForeignKey(User, related_name = "comments")
+    author = models.ForeignKey(User, related_name = "author")
+    pub_date = models.DateTimeField(auto_now_add = True,null = True)
 
     def save_comment(self):
         self.save()
@@ -99,3 +107,9 @@ class Comments(models.Model):
     def get_comments_by_images(cls, id):
         comments = Comments.objects.filter(image__pk = id)
         return comments
+
+    def delete_comment(self):
+        Comments.objects.get(id = self.id).delete()    
+
+    def __str__(self):
+        return self.comment    
