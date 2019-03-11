@@ -35,7 +35,7 @@
                 <a  href="" data-toggle="modal" data-target="#myModal"><i class="fa fa-comment-o fa-2x" aria-hidden="true"></i></a> {{ image.comments.count }}
             </li>
         </ul>
-        <h5 style="font-family: 'Gentium Basic', serif;"><b><a href="{%url 'profile' username = image.poster.username %}" >{{image.poster|upper}} :</a></b> {{image.caption}} </h5>
+        <h5 style="font-family: 'Gentium Basic', serif;"><b><a href="{%url 'profile' username=image.poster.username %}" >{{image.poster|upper}} :</a></b> {{image.caption}} </h5>
        
     </div>
     {% for comment in image.comments.all %}

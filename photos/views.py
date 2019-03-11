@@ -9,22 +9,22 @@ from django.core.files.storage import FileSystemStorage
 
 
 # Create your views here.
-
-
-
 def home(request):
     current_user = request.user
-    images = Image.objects.order_by('-pub_date') 
-    profile = Profile.objects.order_by('_last_update')  
-    return render(request,'index.html', {'images':images, 'profile':profile})
+    images = Image.objects.order_by('-pub_date')
+    profiles = Profile.objects.order_by('-last_update')
+    
+    return render(request, 'index.html', {'images':images, 'profiles':profiles})
+
 
 def upload_image(request):
     current_user = request.user
+    user = current_user
     if request.method == 'POST':
         form = ImageForm(request.POST, request.FILES)
         if form.is_valid():
             image = form.save(commit=False)
-            image.poster = current_user
+            image.poster = user
             image.save()
             return redirect('home')
     else:
@@ -48,7 +48,7 @@ def image(request,image_id):
         if form.is_valid():
             comment = form.save(commit=False)
             comment.image = image
-            comment.author = request.user
+            comment.author = request.user.username
             comment.save()
         return redirect('home')
 
@@ -59,7 +59,7 @@ def image(request,image_id):
     if image.likes.filter(id = request.user.id).exists():
         is_liked = True    
 
-
+   
     return render(request,"image.html", {"image":image,"is_liked":is_liked,"total_likes":image.total_likes(),'comments':comments,'form':form})
 
 
@@ -75,7 +75,7 @@ def like_image(request):
 
     return HttpResponseRedirect(images.get_absolute_url())
 
-def search(request):
+def search_results(request):
     if 'search' in request.GET and request.GET['search']:
         search_term = request.GET.get('search')
         profiles = Profile.search_profile(search_term)
@@ -84,7 +84,4 @@ def search(request):
         return render(request, 'search.html',{'message':message, 'profiles':profiles})
     else:
         message = 'Enter term to search'
-
         return render(request, 'search.html', {'message':message})
-
-

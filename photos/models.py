@@ -3,7 +3,9 @@ from django.contrib.auth.models import User
 from tinymce.models import HTMLField
 from django.urls import reverse
 
+
 # Create your models here.
+
 
 class Profile(models.Model):
     profile_photo = models.ImageField( upload_to = 'profiles/', null=True)
@@ -34,7 +36,10 @@ class Profile(models.Model):
         profile = Profile.objects.filter(user = id).first()
         return profile    
 
-      
+    @classmethod
+    def search_profile(cls,name):
+        profile = Profile.objects.filter(user__username__icontains = name)
+        return profile  
 
 class Image(models.Model):
     image = models.ImageField(default='default.jpg', upload_to = 'images/', blank = True)
@@ -42,7 +47,7 @@ class Image(models.Model):
     likes = models.ManyToManyField(User, related_name = 'likes', blank = True)
     poster = models.ForeignKey(User, related_name = "images", blank = True)
     pub_date = models.DateTimeField(auto_now = True, blank = True)
-  
+    
 
     @classmethod
     def get_image(cls):
@@ -52,9 +57,9 @@ class Image(models.Model):
     def total_likes(self):
        return self.likes.count
 
-    def search_by_user(cls, search_term):
-        images = cls.objects.filter(image_caption__icontains=search_term)
-        return images  
+    def search_by_user(cls, users):
+        images = cls.objects.filter(image_caption__icontains=users)
+        return cls.objects.filter(user_id = user.id) 
 
     @classmethod
     def get_by_id(cls, id):
@@ -99,6 +104,8 @@ class Comments(models.Model):
     image = models.ForeignKey(Image, related_name = "comments")
     author = models.ForeignKey(User, related_name = "author")
     pub_date = models.DateTimeField(auto_now_add = True,null = True)
+    
+
 
     def save_comment(self):
         self.save()

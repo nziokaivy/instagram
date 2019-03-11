@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .models import Profile, Comments, Image
+from django import forms
 
 class UserCreateForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -17,7 +18,7 @@ class CommentForm(forms.ModelForm):
         model = Comments
         fields = ('comment',)
 
-from django import forms
+
 
 class ImageForm(forms.ModelForm):
 
