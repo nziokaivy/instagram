@@ -72,11 +72,12 @@ def like_image(request):
         images.likes.remove(request.user)
         is_liked = False
     else:
-        images.likes.add(request.user.id)
+        images.likes.add(request.user)
         is_liked = True
 
     return HttpResponseRedirect(images.get_absolute_url())
 
+@login_required(login_url='/accounts/login/')
 def search_results(request):
     if 'search' in request.GET and request.GET['search']:
         search_term = request.GET.get('search')
