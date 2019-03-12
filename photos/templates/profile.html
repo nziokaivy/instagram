@@ -34,10 +34,11 @@
         <h1 style="font-family: 'Playfair Display', serif;font-family: 'Sniglet', cursive;">My Images</h1>
 
         {%for image in images %}
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" id="photos">
       
        <p style="font-family: 'Playfair Display', serif;font-family: 'Sniglet', cursive;">{{ image.poster }}</p>
        
-       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" id="photos">
+       
         <img src="{{ image.image.url }}" class="img-responsive"  alt="Image" style="width:100%; height:350px; padding-left:0px; padding-right:0px;" data-toggle="modal" data-target="#{{image.id}}">
          </div> 
      {%endfor%}
