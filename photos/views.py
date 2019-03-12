@@ -70,7 +70,7 @@ def like_image(request):
         images.likes.remove(request.user)
         is_liked = False
     else:
-        images.likes.add(request.user)
+        images.likes.add(request.user.id)
         is_liked = True
 
     return HttpResponseRedirect(images.get_absolute_url())
