@@ -97,7 +97,7 @@ Here is a link to a live demo:[id]<https://ivygram.herokuapp.com/>
 
 ## Bugs
 
-Incase of any bugs:-
+
 
 -   Fork a repo
 -   Create a new branch (git checkout -b improve-feature)
