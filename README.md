@@ -74,7 +74,10 @@ DISABLE_COLLECTSTATIC=1
 * Run the command "python3.6 manage.py runserver" to launch the        application
 
 ## Running tests
-* You can run tests: ```python3.6 manage.py test photos``
+* You can run tests: 
+```
+python3.6 manage.py test photos
+```
 
 
 ## Live Demo
