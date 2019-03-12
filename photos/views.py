@@ -9,6 +9,7 @@ from django.core.files.storage import FileSystemStorage
 
 
 # Create your views here.
+@login_required(login_url='/accounts/login/')
 def home(request):
     current_user = request.user
     images = Image.objects.order_by('-pub_date')
@@ -16,7 +17,7 @@ def home(request):
     
     return render(request, 'index.html', {'images':images, 'profiles':profiles})
 
-
+@login_required(login_url='/accounts/login/')
 def upload_image(request):
     current_user = request.user
     user = current_user
@@ -32,12 +33,13 @@ def upload_image(request):
     
     return render(request, 'upload_image.html', {'form':form})
 
+@login_required(login_url='/accounts/login/')
 def profile(request):
     user = request.user    
     images = Image.objects.all().filter(poster_id = user.id)
     return render(request, 'profile.html', {'images':images, "user":user, "current_user":request.user })
     
-
+@login_required(login_url='/accounts/login/')
 def image(request,image_id):
 
     image = Image.get_image_id(id = image_id)
@@ -62,7 +64,7 @@ def image(request,image_id):
    
     return render(request,"image.html", {"image":image,"is_liked":is_liked,"total_likes":image.total_likes(),'comments':comments,'form':form})
 
-
+@login_required(login_url='/accounts/login/')
 def like_image(request):
     images = get_object_or_404(Image,id = request.POST.get('image_id') )
     is_liked = False
