@@ -12,19 +12,14 @@ class Profile(models.Model):
     user_bio = models.CharField(max_length = 100, blank = True)
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
      
-    def __str__(self):
-        return f'{self.user.username} Profile'
-
+    
     def save_profile(self):
         self.save() 
 
     def get_absolute_url(self): 
         return reverse('user_profile')  
 
-    @classmethod
-    def search_profile(cls, name):
-        profile = Profile.objects.filter(user__username__icontains = name)
-        return profile  
+     
 
     @classmethod
     def get_by_id(cls, id):
@@ -37,9 +32,13 @@ class Profile(models.Model):
         return profile    
 
     @classmethod
-    def search_profile(cls,name):
+    def search_profile(cls, name):
         profile = Profile.objects.filter(user__username__icontains = name)
-        return profile  
+        return profile 
+    
+    def __str__(self):
+        return f'{self.user.username} Profile'
+
 
 class Image(models.Model):
     image = models.ImageField( upload_to = 'images/', blank = True)
@@ -69,7 +68,8 @@ class Image(models.Model):
         self.save()
 
     def delete_image(self):
-        cls.objects.get(id = self.id).delete()
+        Image.objects.get(id = self.id).delete()
+
 
     def update_caption(self):
         self.caption = new_caption
@@ -83,6 +83,9 @@ class Image(models.Model):
     @classmethod
     def get_photos(cls):
        return cls.objects.all()
+
+    def __str__(self):
+        return self.image       
     
 class Comments(models.Model):
     comment = models.CharField(max_length = 100, blank = True)

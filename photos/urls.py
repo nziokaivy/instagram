@@ -10,7 +10,7 @@ urlpatterns = [
     url(r'^upload/$', views.upload_image, name='upload_image'),
     url(r'^likes/$', views.like_image, name='like_image'),
     url(r'^image/(\d+)', views.image, name = 'image'),
-    url(r'^search/', views.search_results, name='search_results'),  
+    url(r'^search/', views.search_results, name='search'),  
 ]   
 
 if settings.DEBUG:

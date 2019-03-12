@@ -77,7 +77,7 @@ def like_image(request):
 
     return HttpResponseRedirect(images.get_absolute_url())
 
-@login_required(login_url='/accounts/login/')
+
 def search_results(request):
     if 'search' in request.GET and request.GET['search']:
         search_term = request.GET.get('search')
